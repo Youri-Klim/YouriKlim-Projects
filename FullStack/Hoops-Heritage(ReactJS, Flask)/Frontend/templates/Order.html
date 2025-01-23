@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏀 Hoops Heritage - Order Listings</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <h1>🏀 Hoops Heritage - Order Listings</h1>
+      <a href="/logout" class="logout-button">Logout</a>
+    </header>
+
+    <main class="container">
+      <!-- Display All Orders -->
+      <section class="card">
+        <h2>All Orders</h2>
+        <ul id="orders-list" class="product-list">
+          {% for order in orders %}
+          <li>
+            <div class="list-group-item">
+              <h5 class="mb-1">Order ID: {{ order['order_id'] }}</h5>
+              <p class="mb-1">Customer ID: {{ order['customer_id'] }}</p>
+              <p class="mb-1">Product ID: {{ order['product_id'] }}</p>
+              <p class="mb-1">
+                Warehouse Number: {{ order['warehouseNumber'] }}
+              </p>
+              <p class="mb-1">Total Price: ${{ order['total_price'] }}</p>
+              <p class="mb-1">Status: {{ order['status'] }}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Create Order -->
+      <section class="card">
+        <h2>Create New Order</h2>
+        <form method="POST" action="{{ url_for('order') }}">
+          <label for="customer_id">Customer ID</label>
+          <input type="number" name="customer_id" required />
+
+          <label for="product_id">Product ID</label>
+          <input type="number" name="product_id" required />
+
+          <label for="WarehouseNumber">Warehouse Number</label>
+          <input type="number" name="WarehouseNumber" required />
+
+          <label for="total_price">Total Price</label>
+          <input type="number" step="0.01" name="total_price" required />
+
+          <button type="submit">Create Order</button>
+        </form>
+
+        <p id="create-order-message" class="message"></p>
+      </section>
+
+      <!-- Update Order Status -->
+      <section class="card">
+        <h2>Update Order Status</h2>
+        <form id="update-status-form" method="POST" action="/order">
+          <input type="hidden" name="_method" value="PUT" />
+          <label for="order_id">Order ID</label>
+          <input
+            type="number"
+            name="order_id"
+            id="order_id"
+            placeholder="Order ID"
+            required
+          />
+          <label for="status">Status</label>
+          <select name="status" id="status" required>
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Refunded">Refunded</option>
+            <option value="Exchanged">Exchanged</option>
+          </select>
+          <button type="submit" class="action-btn">Update Status</button>
+        </form>
+
+        <p id="update-status-message" class="message"></p>
+      </section>
+
+      <!-- Request Return -->
+      <section class="card">
+        <h2>Request a Return</h2>
+        <form
+          id="request-return-form"
+          class="form"
+          onsubmit="requestReturn(event)"
+        >
+          <input
+            type="number"
+            name="order_id"
+            placeholder="Order ID"
+            required
+          />
+          <select name="status" class="form-control" required>
+            <option value="Refunded">Refunded</option>
+            <option value="Exchanged">Exchanged</option>
+          </select>
+          <input
+            type="number"
+            name="new_product_id"
+            placeholder="New Product ID (For Exchange)"
+          />
+          <button type="submit" class="action-btn">Request Return</button>
+        </form>
+        <p id="return-message" class="message"></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>🏀 Hoops Heritage &copy; 2024</p>
+    </footer>
+  </body>
+</html>

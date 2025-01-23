@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      nav {
+        margin-bottom: 20px;
+      }
+      nav button {
+        margin-right: 10px;
+      }
+      section {
+        display: none;
+      }
+      section.active {
+        display: block;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Inventory Management</h1>
+    </header>
+
+    <nav>
+      <button onclick="showSection('view-inventory')">View Inventory</button>
+      <button onclick="showSection('update-stock')">Update Stock</button>
+      <button onclick="showSection('low-stock-alert')">Low Stock Alerts</button>
+      <button onclick="showSection('inventory-report')">
+        Inventory Report
+      </button>
+    </nav>
+
+    <!-- View Inventory Section -->
+    <section id="view-inventory" class="active">
+      <h2>Product Inventory</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Warehouse Number</th>
+            <th>Total Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in inventory %}
+          <tr>
+            <td>{{ item['Id'] }}</td>
+            <td>{{ item['Name'] }}</td>
+            <td>{{ item['WarehouseNumber'] }}</td>
+            <td>{{ item['TotalStock'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Update Stock Section -->
+    <section id="update-stock">
+      <h2>Update Stock</h2>
+      <form method="POST" action="/inventory">
+        <label for="warehouse_number">Warehouse Number:</label>
+        <input
+          type="number"
+          id="warehouse_number"
+          name="warehouse_number"
+          required
+        />
+
+        <label for="product_id">Product ID:</label>
+        <input type="number" id="product_id" name="product_id" required />
+
+        <label for="stock">New Stock:</label>
+        <input type="number" id="stock" name="stock" required />
+
+        <button type="submit">Update</button>
+      </form>
+    </section>
+
+    <!-- Low Stock Alerts Section -->
+    <section id="low-stock-alert">
+      <h2>Low Stock Alerts</h2>
+      {% if low_stock_alerts %}
+      <ul>
+        {% for alert in low_stock_alerts %}
+        <li>
+          Product: {{ alert['Name'] }} - Stock: {{ alert['Stock'] }} (Warehouse:
+          {{ alert['WarehouseNumber'] }})
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>All products have sufficient stock levels.</p>
+      {% endif %}
+    </section>
+
+    <!-- Inventory Report Section -->
+    <section id="inventory-report">
+      <h2>Inventory Report</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Stock</th>
+            <th>Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in report %}
+          <tr>
+            <td>{{ item['Name'] }}</td>
+            <td>{{ item['TotalStock'] }}</td>
+            <td>{{ item['Sold'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <script>
+      function showSection(sectionId) {
+        document.querySelectorAll("section").forEach((section) => {
+          section.classList.remove("active");
+        });
+        document.getElementById(sectionId).classList.add("active");
+      }
+    </script>
+  </body>
+</html>

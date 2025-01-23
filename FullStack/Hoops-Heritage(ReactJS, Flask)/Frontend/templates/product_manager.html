@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Product Listings{% endblock %}
+
+
+{% block content %}
+    <a href="{{ url_for('add_product') }}" class="btn btn-primary mb-4">Add New Product</a>
+    <a href="{{ url_for('upload_csv') }}" class="btn btn-primary mb-4">Import Data from a CSV</a>
+
+
+    <form method="get" action="{{ url_for('product_management_page') }}" class="mb-4">
+        <div class="row">
+            <!-- Filter by Price Range -->
+            <div class="col-md-3">
+                <label for="min_price">Min Price</label>
+                <input type="number" name="min_price" id="min_price" class="form-control" value="{{ request.args.get('min_price', '') }}">
+            </div>
+            <div class="col-md-3">
+                <label for="max_price">Max Price</label>
+                <input type="number" name="max_price" id="max_price" class="form-control" value="{{ request.args.get('max_price', '') }}">
+            </div>
+            <!-- Filter by Discounted Price Range -->
+            <div class="col-md-3">
+                <label for="min_discounted_price">Min Discounted Price</label>
+                <input type="number" name="min_discounted_price" id="min_discounted_price" class="form-control" value="{{ request.args.get('min_discounted_price', '') }}">
+            </div>
+            <div class="col-md-3">
+                <label for="max_discounted_price">Max Discounted Price</label>
+                <input type="number" name="max_discounted_price" id="max_discounted_price" class="form-control" value="{{ request.args.get('max_discounted_price', '') }}">
+            </div>
+            <!-- Filter by Discount Range -->
+            <div class="col-md-3">
+                <label for="min_discount">Min Discount (%)</label>
+                <input type="number" name="min_discount" id="min_discount" class="form-control" value="{{ request.args.get('min_discount', '') }}">
+            </div>
+            <div class="col-md-3">
+                <label for="max_discount">Max Discount (%)</label>
+                <input type="number" name="max_discount" id="max_discount" class="form-control" value="{{ request.args.get('max_discount', '') }}">
+            </div>
+            <!-- Filter by Team ID -->
+            <div class="col-md-3">
+                <label for="team_id">Team ID</label>
+                <input type="number" name="team_id" id="team_id" class="form-control" value="{{ request.args.get('team_id', '') }}">
+            </div>
+            <!-- Filter by Category -->
+            <div class="col-md-3">
+                <label for="category">Category</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">All</option>
+                    <option value="Current-Era" {% if request.args.get('category') == 'Current-Era' %}selected{% endif %}>Current-Era</option>
+                    <option value="Classics" {% if request.args.get('category') == 'Classics' %}selected{% endif %}>Classics</option>
+                    <option value="Vintage" {% if request.args.get('category') == 'Vintage' %}selected{% endif %}>Vintage</option>
+                    <option value="Retro" {% if request.args.get('category') == 'Retro' %}selected{% endif %}>Retro</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+    </form>
+    
+    <!-- Sorting -->
+    <div class="mb-4">
+        <span>Sort by: </span>
+        <a href="{{ url_for('product_management_page', sort_by='Name', order='desc' if request.args.get('sort_by') == 'Name' and request.args.get('order') == 'asc' else 'asc') }}">Name</a> |
+        <a href="{{ url_for('product_management_page', sort_by='Price', order='desc' if request.args.get('sort_by') == 'Price' and request.args.get('order') == 'asc' else 'asc') }}">Price</a> |
+        <a href="{{ url_for('product_management_page', sort_by='Discount', order='desc' if request.args.get('sort_by') == 'Discount' and request.args.get('order') == 'asc' else 'asc') }}">Discount</a> |
+        <a href="{{ url_for('product_management_page', sort_by='DiscountedPrice', order='desc' if request.args.get('sort_by') == 'DiscountedPrice' and request.args.get('order') == 'asc' else 'asc') }}">Discounted Price</a>
+    </div>
+    
+
+    <!-- Display products, with buttons to edit each or delete each. -->
+
+    <div class="list-group">
+        {% for product in products %}
+            <div class="list-group-item d-flex align-items-center">
+                {% if product['Image'] %}
+                    <img src="{{ url_for('static', filename='images/' + product['Image']) }}" width="50" class="mr-3">
+                {% endif %}
+                <div>
+                    <h5 class="mb-1">{{ product['Name'] }} - ${{ product['Price'] }}</h5>
+                    <h5 class="mb-1">{{ product['TeamID'] }} - ${{ product['Category'] }}</h5>
+                    <p class="mb-1">Discount: {{ product['Discount'] }}% | Discounted Price: ${{ product['DiscountedPrice'] }}</p>
+                    <p class="mb-1">{{ product['Description'] }}</p>
+
+                    <div class="mt-2">
+                        <a href="{{ url_for('edit_product', id=product['Id']) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <form action="{{ url_for('delete_product', id=product['Id']) }}" method="post" style="display: inline;">
+    
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

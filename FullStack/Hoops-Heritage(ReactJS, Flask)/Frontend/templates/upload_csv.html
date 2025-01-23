@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Upload CSV{% endblock %}
+
+{% block content %}
+    <h2>Upload Products from CSV</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">CSV File</label>
+            <h3> Note: Must be formatted as follows. Your columns must be: 'name', 'teamid', 'category', 'price', 'discount', 'description', 'image_directory'</h3>
+            <input type="file" name="file" class="form-control-file" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+{% endblock %}
+
+

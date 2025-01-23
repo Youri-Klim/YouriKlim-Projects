@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoops Heritage - File Upload</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .card h2 {
+            text-align: left;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <h1>🏀 Hoops Heritage - File Upload</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Upload a File</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="form">
+                <input type="file" name="file" required>
+                <button type="submit" class="action-btn">Upload</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>🏀 Hoops Heritage &copy; 2024</p>
+    </footer>
+</body>
+</html>

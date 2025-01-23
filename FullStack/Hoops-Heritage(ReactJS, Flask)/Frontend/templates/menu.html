@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoops Heritage - Admin Menu</title>
+    <link rel="stylesheet" href="/static/styles.css">
+
+</head>
+<body>
+    <header class="navbar">
+        <h1>🏀 Hoops Heritage - Admin Dashboard</h1>
+        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+    </header>
+
+    <section class="card">
+        <p>Welcome to the Admin Dashboard!</p>
+
+        <div class="roles-buttons">
+            {% set role_urls = {'Inventory Manager': 'inventory', 'Product Manager': 'product_management_page', 'Order Manager': 'order'} %}
+            {% for role, url in role_urls.items() %}
+                {% if role in roles %}
+                    <a href="{{ url_for(url) }}" class="role-button">{{ role }}</a>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    
+    <footer>
+        <p>🏀 Hoops Heritage &copy; 2024</p>
+    </footer>
+
+</body>
+</html>

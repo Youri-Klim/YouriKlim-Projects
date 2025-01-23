@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoops Heritage - Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>🏀 Hoops Heritage - Admin Login</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Login</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        
+            <form action="/login" method="POST" class="form">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <button type="submit" class="action-btn">Login</button>
+            </form>
+            <p><a href="#">Forgot Password? Contact Administrator</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>🏀 Hoops Heritage &copy; 2024</p>
+    </footer>
+</body>
+</html>

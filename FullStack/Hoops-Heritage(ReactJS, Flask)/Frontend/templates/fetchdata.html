@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoops Heritage - Fetch Data</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .card h2 {
+            text-align: left;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <h1>🏀 Hoops Heritage - Fetch External Data</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Validate and Fetch Data</h2>
+            <form action="/fetch_data" method="POST" class="form">
+                <input type="text" name="url" placeholder="Enter URL" required>
+                <button type="submit" class="action-btn">Fetch</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>🏀 Hoops Heritage &copy; 2024</p>
+    </footer>
+</body>
+</html>
