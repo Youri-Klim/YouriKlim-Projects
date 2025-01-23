@@ -1,0 +1,84 @@
+body{
+    background-color: #011F3F;
+    text-align: center;
+}
+
+p{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    color: #FEF2BF;
+    position: absolute; 
+    bottom: 20px;       
+    right: 20px;  
+}
+
+
+h1{
+    font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  margin:  5%;
+  color: #FEF2BF;
+  display: block;
+}
+
+.container{
+    height: 45vh;
+    width: 33vh;
+    margin-left: 40vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn{
+    margin: 25px;
+    display: inline-block;
+    height: 30vh;
+    width: 30vh;
+    border: 10px solid black;
+    border-radius: 20%;
+}
+
+#yellow{
+    background-color: yellow;
+}
+
+#blue{
+    background-color: blue;
+}
+
+#red{
+    background-color: red;
+}
+
+#green{
+    background-color: green;
+}
+
+.pressed{
+    box-shadow: 0 0 20px white;
+}
+
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem; /* Scale down the title */
+        margin: 10px;
+    }
+
+    .container {
+        flex-direction: column; /* Stack buttons vertically */
+        width: auto; /* Use full width */
+        margin: 0 auto; /* Center container */
+    }
+
+    .btn {
+        height: 12vh; /* Further reduce button size */
+        width: 12vh;
+    }
+
+    p {
+        text-align: center; /* Center-align the footer text */
+        font-size: 1rem; /* Adjust footer text size */
+    }
+}
+  
