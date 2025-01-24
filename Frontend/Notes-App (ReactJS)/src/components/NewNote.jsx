@@ -17,6 +17,7 @@ function NewNote({ notesArray, setNotes }) {
       id: notesArray.length + 1,
       title: newTitle,
       body: newBody,
+      deleted: false,
     };
 
     setNotes([...notesArray, newNote]);
