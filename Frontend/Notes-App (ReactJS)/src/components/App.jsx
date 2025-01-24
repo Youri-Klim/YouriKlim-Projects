@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
-import notes from "../notes";
-
-function fillNotes(note) {
-  return (
-    <Note
-      key={note.key}
-      title={note.title}
-      content={note.content}
-    />
-  );
-}
+import NewNote from "./NewNote";
 
 function App() {
+  const [notesArray, setNotes] = useState([]);
+
+  function fillNotes(note) {
+    return (
+      <Note
+        key={note.id}
+        title={note.title}
+        content={note.body}
+      />
+    );
+  }
+
   return (
     <div className="Youri">
       <Header />
-      {notes.map(fillNotes)}
+      <NewNote notesArray={notesArray} setNotes={setNotes} />
+      {notesArray.map(fillNotes)}
       <Footer />
     </div>
   );

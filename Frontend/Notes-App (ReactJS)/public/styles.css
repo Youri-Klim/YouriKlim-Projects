@@ -54,3 +54,37 @@ footer p {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+.newNote{
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 40vw;
+  height: 25vh;
+  margin: 16px;
+  float: center;
+  margin-left: 30%;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+::placeholder {
+  font-size: larger;
+}
+
+button {
+  background: #f5ba13;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
